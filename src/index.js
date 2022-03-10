@@ -2,6 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
+const App = () => {
+    return (
+        <div>
+            <AppHeader />        
+            <SearchPanel />
+            <TodoList />
+        </div>
+    );
+};
+
+
 const AppHeader = () => <h1>My Todo List</h1>;
 
 
@@ -19,15 +30,8 @@ const TodoList = () => {
     );
 };
 
-const el = (
-    <div>
-        <AppHeader />        
-        <SearchPanel />
-        <TodoList />
-    </div>
-);
 
 ReactDOM.render(
-    el,
+    <App />,
     document.getElementById('root')
 );
