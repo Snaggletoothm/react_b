@@ -18,11 +18,14 @@ export default class App extends Component {
   };
 
   deleteItem = (id) => {
-    const newTodoData = this.state.todoData.filter(
-      each => each.id !== id
-    );
     this.setState(
-      (state) => {
+      ({ todoData }) => {
+        const delIndex = todoData.findIndex(each => each.id === id);
+        const newTodoData = [
+          ...todoData.slice(0, delIndex), 
+          ...todoData.slice(delIndex + 1)
+        ];
+        
         return { todoData: newTodoData };
       }
     );
