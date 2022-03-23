@@ -17,7 +17,16 @@ export default class App extends Component {
     ]
   };
 
-  deleteItem = (id) => console.log(`delete id=${id}`);
+  deleteItem = (id) => {
+    const newTodoData = this.state.todoData.filter(
+      each => each.id !== id
+    );
+    this.setState(
+      (state) => {
+        return { todoData: newTodoData };
+      }
+    );
+  };
 
   render() {
     return (
