@@ -5,6 +5,8 @@ import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemStatusFilter from '../item-status-filter';
 
+import ItemAddForm from '../item-add-form';
+
 import './app.css';
 
 export default class App extends Component {
@@ -15,6 +17,15 @@ export default class App extends Component {
       { label: 'Make Awesome App', important: true, id: 2 },
       { label: 'Have a lunch', important: false, id: 3 }
     ]
+  };
+
+  addItem = (text) => {
+    this.setState( ({todoData}) => {
+      const currentList = todoData;
+      const nextNdex4AppendItem = currentList.sort(item => item.id)[0].id + 1;
+      const newTodoItem = {label: `item ${nextNdex4AppendItem}`, important: false, id: nextNdex4AppendItem};
+      return {todoData: [...currentList, newTodoItem]};
+    });
   };
 
   deleteItem = (id) => {
@@ -41,6 +52,7 @@ export default class App extends Component {
         </div>
   
         <TodoList todos={this.state.todoData} onDel={this.deleteItem} />
+        <ItemAddForm addItem={this.addItem} />
       </div>
     );
   }  
