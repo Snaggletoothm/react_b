@@ -21,7 +21,7 @@ export default class App extends Component {
     this.setState(
       ({ todoData }) => {
         const delIndex = todoData.findIndex(each => each.id === id);
-        let newTodoData = [
+        const newTodoData = [
           ...todoData.slice(0, delIndex), 
           ...todoData.slice(delIndex + 1)
         ];
