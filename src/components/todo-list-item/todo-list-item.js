@@ -22,7 +22,6 @@ export default class TodoListItem extends Component {
       <span className={classNames}>
         <span
           className="todo-list-item-label"
-          // onClick={this.onLabelClick}
           onClick={onToggleDone}
         >
           {label}
@@ -30,7 +29,6 @@ export default class TodoListItem extends Component {
   
         <button type="button"
           className="btn btn-outline-success btn-sm float-right"
-          // onClick={this.onMarkImportant}
           onClick={onToggleImportant}
         >
           <i className="fa fa-exclamation" />

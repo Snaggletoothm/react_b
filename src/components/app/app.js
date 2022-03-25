@@ -38,7 +38,7 @@ export default class App extends Component {
 
   onToggleDone = (id) => {
     this.setState(({todoData}) => {
-      return this.getStateByAttr(todoData, id, 'done');;
+      return this.getStateByAttr(todoData, id, 'done');
     });
   };
 
@@ -58,7 +58,7 @@ export default class App extends Component {
   addItem = (text) => {
     this.setState( ({todoData}) => {
       const currentList = todoData;
-      const newTodoItem = this.createTodoItem('new item');
+      const newTodoItem = this.createTodoItem(text);
       return {todoData: [...currentList, newTodoItem]};
     });
   };
