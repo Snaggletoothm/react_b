@@ -11,22 +11,61 @@ import './app.css';
 
 export default class App extends Component {
 
+  currId = 0;
+
   state = {
     todoData: [
-      { label: 'Drink Coffee', important: false, id: 1 }, 
-      { label: 'Make Awesome App', important: true, id: 2 },
-      { label: 'Have a lunch', important: false, id: 3 }
+      this.createTodoItem('Drink a Coffee'),
+      this.createTodoItem('Make some awesome'),
+      this.createTodoItem('build app'),
     ]
   };
 
-  onToggleImportant = (id) => console.log(`toggle important ${id}`);
-  onToggleDone = (id) => console.log(`toggle done ${id}`);
+  createTodoItem(label) {
+    return {
+      label: label,
+      important: false,
+      done: false,
+      id: this.currId++
+    };
+  }
+
+  onToggleImportant = (id) => {
+    this.setState(({todoData}) => {
+      const targetIndex = todoData.findIndex(each => each.id === id);
+      const oldItem = todoData[targetIndex];
+      const newItem = {...oldItem, important: !oldItem.important};
+
+      const newArray = [
+        ...todoData.slice(0, targetIndex),
+        newItem,
+        ...todoData.slice(targetIndex + 1),
+      ];
+
+      return { todoData: newArray };
+    })
+  }
+
+  onToggleDone = (id) => {
+    this.setState(({todoData}) => {
+      const targetIndex = todoData.findIndex(each => each.id === id);
+      const oldItem = todoData[targetIndex];
+      const newItem = {...oldItem, 'done': !oldItem['done']};
+      const newArray = [
+        ...todoData.slice(0, targetIndex),
+        newItem,
+        ...todoData.slice(targetIndex + 1),
+      ]; 
+
+      return { todoData: newArray };
+    });
+  };
+
 
   addItem = (text) => {
     this.setState( ({todoData}) => {
       const currentList = todoData;
-      const nextIndex4AppendItem = currentList.sort((item1, item2) => item2.id - item1.id)[0].id + 1;
-      const newTodoItem = {label: `item ${nextIndex4AppendItem}`, important: false, id: nextIndex4AppendItem};
+      const newTodoItem = this.createTodoItem('new item');
       return {todoData: [...currentList, newTodoItem]};
     });
   };
