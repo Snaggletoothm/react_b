@@ -32,48 +32,28 @@ export default class App extends Component {
 
   onToggleImportant = (id) => {
     this.setState(({todoData}) => {
-      const targetIndex = todoData.findIndex(each => each.id === id);
-      const oldItem = todoData[targetIndex];
-      const newItem = {...oldItem, 'important': !oldItem['important']};
-      const newArray = [
-        ...todoData.slice(0, targetIndex),
-        newItem,
-        ...todoData.slice(targetIndex + 1),
-      ]; 
-
-      return { todoData: newArray };
+      return this.getStateByAttr(todoData, id, 'important');
     });
   }
 
   onToggleDone = (id) => {
     this.setState(({todoData}) => {
-      const targetIndex = todoData.findIndex(each => each.id === id);
-      const oldItem = todoData[targetIndex];
-      const newItem = {...oldItem, done: !oldItem.done};
-      const newArray = [
-        ...todoData.slice(0, targetIndex),
-        newItem,
-        ...todoData.slice(targetIndex + 1),
-      ]; 
-
-      return { todoData: newArray };
+      return this.getStateByAttr(todoData, id, 'done');;
     });
   };
 
-  // setChangedItemState(id, propName) {
-  //   this.setState(({todoData}) => {
-  //     const targetIndex = todoData.findIndex(each => each.id === id);
-  //     const oldItem = todoData[targetIndex];
-  //     const newItem = {...oldItem, propName: !oldItem[propName]};
-  //     const newArray = [
-  //       ...todoData.slice(0, targetIndex),
-  //       newItem,
-  //       ...todoData.slice(targetIndex + 1),
-  //     ]; 
+  getStateByAttr(arr, id, propName) {
+    const targetIndex = arr.findIndex(each => each.id === id);
+      const oldItem = arr[targetIndex];
+      const newItem = {...oldItem, [propName]: !oldItem[propName]};
+      const newArray = [
+        ...arr.slice(0, targetIndex),
+        newItem,
+        ...arr.slice(targetIndex + 1),
+      ]; 
 
-  //     return { todoData: newArray };
-  //   });
-  // }
+      return { todoData: newArray };
+  }
 
   addItem = (text) => {
     this.setState( ({todoData}) => {
