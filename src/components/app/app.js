@@ -34,23 +34,22 @@ export default class App extends Component {
     this.setState(({todoData}) => {
       const targetIndex = todoData.findIndex(each => each.id === id);
       const oldItem = todoData[targetIndex];
-      const newItem = {...oldItem, important: !oldItem.important};
-
+      const newItem = {...oldItem, 'important': !oldItem['important']};
       const newArray = [
         ...todoData.slice(0, targetIndex),
         newItem,
         ...todoData.slice(targetIndex + 1),
-      ];
+      ]; 
 
       return { todoData: newArray };
-    })
+    });
   }
 
   onToggleDone = (id) => {
     this.setState(({todoData}) => {
       const targetIndex = todoData.findIndex(each => each.id === id);
       const oldItem = todoData[targetIndex];
-      const newItem = {...oldItem, 'done': !oldItem['done']};
+      const newItem = {...oldItem, done: !oldItem.done};
       const newArray = [
         ...todoData.slice(0, targetIndex),
         newItem,
@@ -61,6 +60,20 @@ export default class App extends Component {
     });
   };
 
+  // setChangedItemState(id, propName) {
+  //   this.setState(({todoData}) => {
+  //     const targetIndex = todoData.findIndex(each => each.id === id);
+  //     const oldItem = todoData[targetIndex];
+  //     const newItem = {...oldItem, propName: !oldItem[propName]};
+  //     const newArray = [
+  //       ...todoData.slice(0, targetIndex),
+  //       newItem,
+  //       ...todoData.slice(targetIndex + 1),
+  //     ]; 
+
+  //     return { todoData: newArray };
+  //   });
+  // }
 
   addItem = (text) => {
     this.setState( ({todoData}) => {
@@ -85,9 +98,17 @@ export default class App extends Component {
   };
 
   render() {
+    const { todoData } = this.state; 
+    const doneCount = todoData
+      .filter(each => each.done)
+      .length;
+
+    const todoCount = todoData.length - doneCount;
+
     return (
+
       <div className="todo-app">
-        <AppHeader toDo={1} done={4} />
+        <AppHeader toDo={todoCount} done={doneCount} />
         <div className="top-panel d-flex">
           <SearchPanel />
           <ItemStatusFilter />
