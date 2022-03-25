@@ -13,7 +13,7 @@ export default class App extends Component {
 
   state = {
     todoData: [
-      { label: 'Drink Coffee', important: false, id: 1 },
+      { label: 'Drink Coffee', important: false, id: 1 }, 
       { label: 'Make Awesome App', important: true, id: 2 },
       { label: 'Have a lunch', important: false, id: 3 }
     ]
@@ -22,8 +22,8 @@ export default class App extends Component {
   addItem = (text) => {
     this.setState( ({todoData}) => {
       const currentList = todoData;
-      const nextNdex4AppendItem = currentList.sort(item => item.id)[0].id + 1;
-      const newTodoItem = {label: `item ${nextNdex4AppendItem}`, important: false, id: nextNdex4AppendItem};
+      const nextIndex4AppendItem = currentList.sort((item1, item2) => item2.id - item1.id)[0].id + 1;
+      const newTodoItem = {label: `item ${nextIndex4AppendItem}`, important: false, id: nextIndex4AppendItem};
       return {todoData: [...currentList, newTodoItem]};
     });
   };
