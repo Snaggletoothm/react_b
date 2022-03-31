@@ -20,6 +20,7 @@ export default class App extends Component {
       this.createTodoItem('build app'),
     ],
     term: '',
+    status: 'all',
   };
 
   createTodoItem(label) {
@@ -82,11 +83,34 @@ export default class App extends Component {
     this.setState({ term: matcher });
   };
 
-  renderingDataItems(todoData, matcher) {
+  onToggleStatus = (status) => {
+    this.setState({
+      status: status
+    });  
+  };
+
+  renderingDataItemsAfterSearch(todoData, matcher) {
     if(matcher === '') {
       return todoData;
     }
-    return todoData.filter(each => each.label.indexOf(matcher) > -1);
+    return todoData.filter(
+      each => each.label.indexOf(matcher) > -1
+    );
+  }
+
+  renderingDataItemsAfterFilter(todoData, status='all') {
+    if(status === 'all') {
+      return todoData;
+    }
+
+    switch(status) {
+      case 'done':
+        return todoData.filter(e => e.done);
+      case 'active': 
+        return todoData.filter(e => !e.done);
+      default:
+        return todoData;   
+    }
   }
 
   render() {
@@ -96,7 +120,8 @@ export default class App extends Component {
       .length;
 
     const todoCount = todoData.length - doneCount;
-    const visibilityItems = this.renderingDataItems(todoData, this.state.term);
+    const visibilityItems = this.renderingDataItemsAfterFilter(
+      this.renderingDataItemsAfterSearch(todoData, this.state.term), this.state.status);
 
     return (
 
@@ -106,7 +131,7 @@ export default class App extends Component {
           <SearchPanel 
             todos={visibilityItems}
             onFilterItems={this.onFilterItems} />
-          <ItemStatusFilter />
+          <ItemStatusFilter onToggleStatus={this.onToggleStatus} />
         </div>
   
         <TodoList 
