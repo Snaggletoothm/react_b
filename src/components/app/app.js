@@ -83,6 +83,7 @@ export default class App extends Component {
     this.setState({ term: matcher });
   };
 
+<<<<<<< HEAD
   onToggleStatus = (status) => {
     this.setState({
       status: status
@@ -111,6 +112,14 @@ export default class App extends Component {
       default:
         return todoData;   
     }
+=======
+  renderingDataItems(todoData, matcher) {
+    console.log(matcher + ' >>> ' + todoData);
+    if(matcher === '') {
+      return todoData;
+    }
+    return todoData.filter(each => each.label.indexOf(matcher) > -1);
+>>>>>>> 394b7b832c31a8fa6674d7bf938ed60ad991809b
   }
 
   render() {
@@ -120,9 +129,13 @@ export default class App extends Component {
       .length;
 
     const todoCount = todoData.length - doneCount;
+<<<<<<< HEAD
     const visibilityItems = this.renderingDataItemsAfterFilter(
       this.renderingDataItemsAfterSearch(todoData, this.state.term), this.state.status);
 
+=======
+    const visibilityItems = this.renderingDataItems(todoData, this.state.term);
+>>>>>>> 394b7b832c31a8fa6674d7bf938ed60ad991809b
     return (
 
       <div className="todo-app">
@@ -131,7 +144,11 @@ export default class App extends Component {
           <SearchPanel 
             todos={visibilityItems}
             onFilterItems={this.onFilterItems} />
+<<<<<<< HEAD
           <ItemStatusFilter onToggleStatus={this.onToggleStatus} />
+=======
+          <ItemStatusFilter />
+>>>>>>> 394b7b832c31a8fa6674d7bf938ed60ad991809b
         </div>
   
         <TodoList 
